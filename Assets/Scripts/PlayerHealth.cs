@@ -11,13 +11,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float currentHealth;
     [SerializeField] Gradient playerGradientColor;
     [SerializeField] SpriteRenderer playerColor;
-    [SerializeField] MovimientoRaton cameraScript; 
-    [SerializeField] GameObject enemy;
     [SerializeField] float pasiveHealingPerSecond;
     public bool endGame = false;
-    float time;
     bool dead;
-    bool reset;
     float normalizedHealth;
 
     void Start()
@@ -37,19 +33,7 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
-
-        if(dead == true) //Input de reinicio cuando el jugador muere
-        {
-            if(reset == true)
-            {
-                currentHealth = maxHealth;
-                SetColor();
-                dead = false;
-                reset = false;
-            }
-        }
-        
-        
+       
     }
 
     public void takeDamage(float amount)//Funcion de recibir daño
@@ -92,7 +76,9 @@ public class PlayerHealth : MonoBehaviour
     }
     void Reset()
     {
-        reset = true;
+        currentHealth = maxHealth;
+        SetColor();
+        dead = false;
     }
 
 }

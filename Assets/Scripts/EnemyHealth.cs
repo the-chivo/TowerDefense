@@ -25,7 +25,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (currentHealth <= 0)  
         {    
-            GetComponent<EnemyScript>().EnemyDead(); //ESTAFUNCION elimina al enemigo
+            GetComponent<Enemy>().EnemyDead(); //ESTAFUNCION elimina al enemigo
             GameEvents.Score.Invoke();               // Esta invoka que el enemigo ha muerto a manos del juagdor
         }
 

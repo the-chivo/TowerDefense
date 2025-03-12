@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullletscript : MonoBehaviour
+public class bulllet : MonoBehaviour
 {
     // Start is called before the first frame update
     float angle;
     [SerializeField] float bulletSpeed;
     [SerializeField] Vector3 direction;
     [SerializeField] float maxBulletDistance;
+    [SerializeField] float bulletSize;
+    [SerializeField] float defaultBulletDamage = 35;
     public float bulletDamage = 35;
-    bool abilityIsOn;
-    bool abilityIsOff = true;
     GameObject player;
-     GameObject enemy;
+     
      Vector3 bulletDistance;
      
     
@@ -63,14 +63,14 @@ public class bullletscript : MonoBehaviour
     //Setea mas daño cuando la habilidad de fuerza esta activa
     void PlayerStrong()
     {
-       if (player.GetComponent<StrongAbility>().strongAbility == true)
+       if (player.GetComponent<StrongAbility>().abilityIsOn == true)
         {
             bulletDamage = player.GetComponent<StrongAbility>().damage; //setea el daño
-            gameObject.transform.localScale = new Vector3(0.35f,0.35f,0); //setea el tamaño
+            gameObject.transform.localScale = new Vector3(bulletSize,bulletSize,0); //setea el tamaño
         }
-        if (player.GetComponent<StrongAbility>().strongAbility == false)
+        if (player.GetComponent<StrongAbility>().abilityIsOn == false)
         {
-            bulletDamage = 35;
+            bulletDamage = defaultBulletDamage;
         }
     
     }

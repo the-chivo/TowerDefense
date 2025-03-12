@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiniGunBulletScript : MonoBehaviour
+public class MiniGunBullet : MonoBehaviour
 {
     // Start is called before the first frame update
     float angle;

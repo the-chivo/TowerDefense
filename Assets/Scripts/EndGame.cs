@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EndGameScript : MonoBehaviour
+public class EndGame : MonoBehaviour
 {
     // Start is called before the first frame update
     

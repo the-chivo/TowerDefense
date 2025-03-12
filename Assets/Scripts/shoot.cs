@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class shoot : ability
+public class shoot : Ability
 {
     // Start is called before the first frame update
     [SerializeField] GameObject bullet;
@@ -12,7 +12,6 @@ public class shoot : ability
     [SerializeField] MovimientoRaton angle;
     [SerializeField] Transform spawnPoint;
     bool dead = false;
-    bool reset = false;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").gameObject;
@@ -23,11 +22,7 @@ public class shoot : ability
     // Update is called once per frame
     void Update()
     {
-        if(reset == true) //Sistema de meurte y reseteo
-        {
-            dead = false;
-            reset = false;
-        }
+        
     }
     public override void trigger()
     {
@@ -42,7 +37,7 @@ public class shoot : ability
         dead = true;
     }
     void Reset()
-    {
-        reset = true;   
+    {  
+        dead = false;  
     }
 }

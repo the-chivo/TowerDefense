@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class healthAbility1 : ability
+public class healthAbility1 : Ability
 {
     // Start is called before the first frame update
     GameObject player;
@@ -15,7 +15,6 @@ public class healthAbility1 : ability
     public float cooldown;
     [SerializeField] UnityEngine.UI.Image cooldownImage;
     bool coolwdownIsOn = false;
-    bool reset;
     bool dead;
     float time;
     float normalizedNumber;
@@ -28,11 +27,10 @@ public class healthAbility1 : ability
     // Update is called once per frame
     void Update()
     {
-        if(healAbilitiIsOn == true && coolwdownIsOn == false)
+        if(healAbilitiIsOn == true)
         {
             healAbilityParticles.gameObject.SetActive(true);
             time += Time.deltaTime;
-            print(time);
             if(time >= abilityDuration)
             {
                 healAbilityParticles.gameObject.SetActive(false);
@@ -40,38 +38,14 @@ public class healthAbility1 : ability
                 coolwdownIsOn = true;
                 healAbilitiIsOn = false;     
             }
-        }
-        if(coolwdownIsOn == true) //sistema de coldown
-        {
-            time += Time.deltaTime;
-            //print("coldown: " + time);
-            if(time >= cooldown)
-            {
-                time = 0;
-                coolwdownIsOn = false;
-            }
-        }
-
-        if(dead == true) //Funcion de reset;
-        {
-            time = 0;
-            healAbilitiIsOn = false;
-            coolwdownIsOn = false;
-            healAbilityParticles.gameObject.SetActive(false);
-            if(reset == true)
-            {
-                dead = false;
-                reset = false;
-            }
-        }
-
-        
+        } 
 
         cooldownUI(); //Funcion de imagen de cooldown
+
     }
     public override void trigger()
     {
-        if(coolwdownIsOn == false)
+        if(coolwdownIsOn == false && dead == false)
         {
             gameObject.GetComponent<PlayerHealth>().Healing(); //Habilidad de curacion
             healAbilitiIsOn = true;
@@ -79,24 +53,32 @@ public class healthAbility1 : ability
     }
     void Reset() 
     {
-        reset = true;
+        dead = false;
+        cooldownImage.fillAmount = 1;
     }
     void Dead()
     {
-        dead = true;
+        time = 0;
+        healAbilitiIsOn = false;
+        coolwdownIsOn = false;
+        healAbilityParticles.gameObject.SetActive(false);
     }
-     void cooldownUI() //funcion que lleva el ui del cooldown
+     void cooldownUI() // Lleva el cooldown y su ui
     {
         if(coolwdownIsOn == true)
         {
-            normalizedNumber = cooldown - time; //normaliza el tiempo que le queda para usarlo con el fillamount
+            time += Time.deltaTime;
+            normalizedNumber = cooldown - time; 
             normalizedNumber /= cooldown;
             normalizedNumber = 1 - normalizedNumber;
             cooldownImage.fillAmount = normalizedNumber;
+            if(time >= cooldown)
+            {
+                cooldownImage.fillAmount = 1;
+                coolwdownIsOn = false;
+                time = 0;
+            }
         }
-        if(coolwdownIsOn == false)
-        {
-            cooldownImage.fillAmount = 1;
-        }
+        
     }
 }

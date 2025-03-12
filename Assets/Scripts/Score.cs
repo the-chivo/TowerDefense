@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ScoreScript : MonoBehaviour
+public class Score : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] TMP_Text scoreText;
@@ -11,11 +11,11 @@ public class ScoreScript : MonoBehaviour
     
     int score;
     int record;
-    bool reset;
+    int gameRecord;
+    
     void Start()
     {
         GameEvents.Score.AddListener(EnemyDead);
-        GameEvents.Reset.AddListener(Reset);
         GameEvents.Dead.AddListener(Dead);
     }
 
@@ -30,16 +30,16 @@ public class ScoreScript : MonoBehaviour
         scoreText.text = score.ToString();
         if(score > record)
         {
-            record = score;
+            gameRecord = score;
         }
-    }
-    void Reset()
-    {
-        reset = true;
+        if(score > gameRecord)
+        {
+            gameRecord = score;
+        }
     }
     void Dead()
     {
-        record = score;
+        record = gameRecord;
         recordText.text = record.ToString();
         score = 0;
         scoreText.text = score.ToString();

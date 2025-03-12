@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class ResetGame : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Start is called before the first frame update 
     public event Action reset;
-    bool dead;
+    bool dead;     //cuidao
     void Start()
     {
         //eliminar

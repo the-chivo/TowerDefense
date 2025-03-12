@@ -7,7 +7,6 @@ public class MovimientoRaton : MonoBehaviour
 {
     // Start is called before the first frame update
     public float angle;
-    bool reset;
     bool dead;
     void Start()
     {
@@ -18,14 +17,6 @@ public class MovimientoRaton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(dead == true)
-        {
-            if(reset == true)
-            {
-                dead = false;
-                reset = false;
-            }
-        }
         if(dead == false) //movimiento de jugador
         {
             Vector3 mouseScreenCoords = Input.mousePosition;
@@ -40,7 +31,7 @@ public class MovimientoRaton : MonoBehaviour
     }
     void Reset() //funcion de muerte del player
     {
-        reset = true;
+        dead = false;
     }
     void Dead()
     {
